@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatMessage } from '../chatmessage';
+import { CHATMESSAGES } from '../mock-chatmessages';
 
 @Component({
   selector: 'app-messages',
@@ -7,6 +8,9 @@ import { ChatMessage } from '../chatmessage';
   styleUrls: ['./messages.component.css']
 })
 export class MessagesComponent implements OnInit {
+
+  // Define component property called messages to expose CHATMESSAGES array for binding
+  messages = CHATMESSAGES;
 
   message: ChatMessage = {
     id: 1,

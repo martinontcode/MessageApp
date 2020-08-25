@@ -1,8 +1,14 @@
 <h2>Messages</h2>
-<div><span>id: {{message.id}}</span></div>
-<div><span>username: {{message.username}}</span></div>
-<div><span>date: {{message.date}}</span></div>
-<div><span>content: {{message.content}}</span></div>
+<ul class="messages">
+    <!-- To list messages from mock-chatmessages.ts we use ngFor -->
+    <li *ngFor="let message of messages">
+        <div><span>id: {{message.id}}</span></div>
+        <div><span>username: {{message.username}}</span></div>
+        <div><span>date: {{message.date}}</span></div>
+        <div><span>content: {{message.content}}</span></div>
+    </li>
+</ul>
+
 <hr>
 <div>
     <label>
