@@ -12,6 +12,12 @@
 <hr>
 <div>
     <label>
-        Insert message: <input [(ngModel)]="message.content" placeholder="Insert message"/>
+        <input #chatMessage>
+        <button (click)="add(chatMessage.value); chatMessage.value=''">Insert message</button>
     </label>
 </div>
+<!-- <div>
+    <label>
+        Insert message: <input [(ngModel)]="message.content" placeholder="Insert message"/>
+    </label>
+</div> -->

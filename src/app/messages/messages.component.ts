@@ -27,6 +27,24 @@ export class MessagesComponent implements OnInit {
     // this.messages = this.chatMessageService.getChatMessages();
   }
 
+  add(content: string): void{
+    // Username is set as a constant until user component is created.
+    const username = 'Admin';
+
+    // Set dynamic property for datetime.
+    var today = new Date();
+    var currentDate = today.toLocaleDateString();
+    var currentTime = today.toLocaleTimeString();
+    var date = currentDate+' '+currentTime;
+
+    content = content.trim();
+    if (!content) { return; }
+    this.chatMessageService.addChatMessage( { username, content, date } as ChatMessage)
+        .subscribe(chatmessage => {
+          this.messages.push(chatmessage);
+        });
+  }
+
   constructor(private chatMessageService: ChatmessageService) { }
 
   ngOnInit(): void {
