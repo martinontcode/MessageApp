@@ -19,3 +19,18 @@
     background-color: #DDD;
     left: .1em;
 }
+.chatContainer {
+    background-color: #F7F5FB;
+}
+.messageRow {
+    margin-bottom: 10px;
+}
+.messageContainer {
+    background-color: #FFF;
+}
+.messageUser {
+    padding: 5px;
+}
+.messageContent {
+    padding: 5px;
+}
