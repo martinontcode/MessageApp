@@ -25,12 +25,7 @@
 .messageRow {
     margin-bottom: 10px;
 }
-.messageContainer {
+.flexMessageContainer {
     background-color: #FFF;
-}
-.messageUser {
-    padding: 5px;
-}
-.messageContent {
-    padding: 5px;
+    padding: 8px;
 }
