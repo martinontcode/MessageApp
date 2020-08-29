@@ -14,18 +14,43 @@
     </div>
     <hr>
     <!-- Chat list area -->
-    <div class="row mb-2">
+    <div class="row mb-2" *ngFor="let chat of chats">
         <div class="col col-2 d-flex align-items-center justify-content-end pr-0">
-            <img src="https://png.pngtree.com/element_origin_min_pic/17/08/01/b62d08d09275d0d662a769e2e08e1e9c.jpg"
+            <img src="{{chat.picture}}"
             alt="Chat logo" class="img-thumbnail" height="35" width="35">
         </div>
-        <div class="col col-10 d-flex align-items-center text-muted font-weight-light"><small>{{ chat.name }}</small></div>
+        <div class="col col-10 d-flex align-items-center text-muted font-weight-light"><small>{{chat.name}}</small></div>
     </div>
     <!-- Create chat area -->
     <!-- Full height can be achived with vh-100 -->
     <div class="row">
         <div class="col col-8 offset-2">
-            <button type="button" class="btn btn-sm btn-block btn-outline-dark">+ New Chat</button>
+            <button type="button" class="btn btn-sm btn-block btn-outline-dark"
+            data-toggle="modal" data-target="#newChatConfirmModal">
+            + New Chat</button>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="newChatConfirmModal" tabindex="-1" role="dialog" aria-labelledby="newChatConfirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newChatConfirmModalLabel">Create a new chat</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input #chatName type="text" class="form-control" placeholder="Insert chat name" id="chatName" required>
+                    <input #chatPictureUrl type="url" class="form-control" placeholder="Insert picture URL" id="chatPictureUrl" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-dark"
+                    (click)="addChats(chatName.value, chatPictureUrl.value); chatName.value=''; chatPictureUrl.value=''"
+                    >Create chat</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
