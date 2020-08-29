@@ -9,11 +9,13 @@ import { MessagesComponent } from './messages/messages.component';
 // Import HttpClient modules to simulate a data server
 import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
 import { InMemoryDataService } from "./in-memory-data.service";
+import { ChatsComponent } from './chats/chats.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MessagesComponent
+    MessagesComponent,
+    ChatsComponent
   ],
   imports: [
     BrowserModule,
