@@ -1,13 +1,11 @@
 <div class="container-fluid">
-    <div class="row vh-100">
+    <div class="row">
         <div class="col col-1 pr-0 border-right">
 
         </div>
-        <div class="col col-2 pl-0 pr-0 border-right chatContainer">
-            <app-chats></app-chats>
-        </div>
+        <app-chats class="col col-2"></app-chats>
         <div class="col col-9 pl-0 messageContainer">
-            <app-messages></app-messages>
+            <router-outlet></router-outlet>
         </div>
     </div>
 </div>

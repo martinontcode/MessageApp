@@ -9,6 +9,8 @@ import { ChatService } from "../chat.service";
 })
 export class ChatsComponent implements OnInit {
 
+  selectedChat: Chat;
+
   chats: Chat[];
 
   getChats(): void {
@@ -25,6 +27,11 @@ export class ChatsComponent implements OnInit {
         .subscribe(chats => {
           this.chats.push(chats);
         });
+  }
+
+  onSelect(chat: Chat): void {
+    this.selectedChat = chat;
+    // this.selectedChatId = chat.id;
   }
 
   constructor(private chatService: ChatService) { }

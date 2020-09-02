@@ -38,8 +38,7 @@
             <div class="input-group">
                 <input #chatMessage class="form-control"
                 (keyup.enter)="add(chatMessage.value); chatMessage.value=''"
-                placeholder="Insert message" id="chatMessage"
-                >
+                placeholder="Insert message" id="chatMessage">
                 <div class="input-group-append">
                     <button class="btn btn-secondary" (click)="add(chatMessage.value); chatMessage.value=''">Send</button>
                 </div>
