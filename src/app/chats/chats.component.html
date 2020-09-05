@@ -5,8 +5,7 @@
             <div class="col col-12 form-group mb-0">
                 <div class="input-group">
                     <input #chatSearch class="form-control form-control-sm"
-                    placeholder="Search" id="chatSearch"
-                    >
+                    placeholder="Search" id="chatSearch">
                     <div class="input-group-append">
                         <button class="input-group-text btn btn-sm bg-white"><i class="fas fa-search fa-xs"></i></button>
                     </div>
@@ -20,10 +19,19 @@
                 <img src="{{chat.picture}}"
                 alt="Chat logo" class="img-thumbnail" height="35" width="35">
             </div>
-            <div class="col col-10 d-flex align-items-center">
+            <div class="col col-8 d-flex align-items-center">
                 <small>
                     <a routerLink="chat/{{chat.id}}" class="underline text-muted font-weight-light">{{chat.name}}</a>
                 </small>
+            </div>
+            <div class="col col-1 d-flex align-items-center">
+                <div class="dropdown">
+                    <i class="fas fa-ellipsis-h fa-xs" role="button" id="settingsDropdownButton" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false"></i>
+                    <div class="dropdown-menu" aria-labelledby="settingsDropdownButton">
+                        <a routerLink="chat-settings/{{chat.id}}" class="dropdown-item">Settings</a>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- Create chat area -->
@@ -59,7 +67,4 @@
             </div>
         </div>
     </div>
-    <!-- <div class="col col-10 pl-0 messageContainer">
-        <app-messages *ngIf="selectedChat" [chat]="selectedChat"></app-messages>
-    </div> -->
 </div>
