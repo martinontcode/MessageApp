@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Chat } from '../chat';
 import { ChatService } from "../chat.service";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-chats',
@@ -34,10 +35,17 @@ export class ChatsComponent implements OnInit {
     // this.selectedChatId = chat.id;
   }
 
-  constructor(private chatService: ChatService) { }
+  constructor(
+    private chatService: ChatService,
+    private route: ActivatedRoute,
+    ) { }
 
   ngOnInit(): void {
     this.getChats();
+    this.chatService.$saved
+      .subscribe( (change) => {
+        this.getChats();
+      })
   }
 
 }
