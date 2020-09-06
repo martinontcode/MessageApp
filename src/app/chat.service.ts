@@ -42,6 +42,15 @@ export class ChatService {
     return this.http.delete<Chat>(url, this.httpOptions);
   }
 
+  chatSearch(name: string): Observable<Chat[]> {
+    // If no search term, return empty chat array.
+    if (!name.trim()) {
+      return of ([]);
+    }
+
+    return this.http.get<Chat[]>(`${this.chatUrl}/?name=${name}`);
+  }
+
   notifyChange() {
     const change = 'Settings changed';
     this.$saved.emit(change);

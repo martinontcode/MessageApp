@@ -1,17 +1,7 @@
 <div class="row vh-100">
     <div class="col col-12 border-right chatContainer">
         <!-- Search box area -->
-        <div class="row mt-2">
-            <div class="col col-12 form-group mb-0">
-                <div class="input-group">
-                    <input #chatSearch class="form-control form-control-sm"
-                    placeholder="Search" id="chatSearch">
-                    <div class="input-group-append">
-                        <button class="input-group-text btn btn-sm bg-white"><i class="fas fa-search fa-xs"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <app-chat-search></app-chat-search>
         <hr>
         <!-- Chat list area -->
         <div class="row mb-2 pl-1" *ngFor="let chat of chats" (click)="onSelect(chat)" [class.border]="chat === selectedChat">
@@ -54,8 +44,14 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <input #chatName type="text" class="form-control" placeholder="Insert chat name" id="chatName" required>
-                        <input #chatPictureUrl type="url" class="form-control" placeholder="Insert picture URL" id="chatPictureUrl" required>
+                        <div class="form-group">
+                            <label for="chatName">Insert chat name</label>
+                            <input #chatName type="text" class="form-control" placeholder="Chat name" id="chatName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="chatPictureUrl">Insert picture URL</label>
+                            <input #chatPictureUrl type="url" class="form-control" placeholder="HTTP://URL" id="chatPictureUrl" required>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
