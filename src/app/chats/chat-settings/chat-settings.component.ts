@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
 import { Chat } from '../../chat';
 import { ChatService } from "../../chat.service";
@@ -17,10 +17,6 @@ export class ChatSettingsComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.chatService.getChatProperties()
         .subscribe(chatproperties => this.chat = chatproperties.filter(chatfilter => chatfilter.id === id))
-  }
-
-  goBack(): void {
-    this.location.back();
   }
 
   saveChatSettings(picture: string, name: string): void{
@@ -41,10 +37,30 @@ export class ChatSettingsComponent implements OnInit {
     this.chatService.notifyChange();
   }
 
+  deleteChat(chat: Chat): void {
+    /* Put all objects inside array to the same array, but filter out the chat that we want to delete.
+       Delete chat from lcoal array. */
+    this.chat = this.chat.filter(chat => chat !== chat);
+
+    // Delete from database using chatService.
+    this.chatService.deleteChat(chat).subscribe();
+
+    // Notify Chats component of a change in database, so getChats() would get triggered again.
+    this.chatService.notifyChange();
+
+    // Redirect user to home URL after Chat has been deleted.
+    this.router.navigate(['/']);
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
+
   constructor(
     private chatService: ChatService,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
