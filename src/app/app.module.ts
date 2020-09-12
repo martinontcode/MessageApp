@@ -12,6 +12,7 @@ import { InMemoryDataService } from "./in-memory-data.service";
 import { ChatsComponent } from './chats/chats.component';
 import { ChatSettingsComponent } from './chats/chat-settings/chat-settings.component';
 import { ChatSearchComponent } from './chats/chat-search/chat-search.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ChatSearchComponent } from './chats/chat-search/chat-search.component';
     MessagesComponent,
     ChatsComponent,
     ChatSettingsComponent,
-    ChatSearchComponent
+    ChatSearchComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
