@@ -22,10 +22,18 @@
 .chatContainer {
     background-color: #F7F5FB;
 }
+.contentArea {
+    min-height: 300px;
+    max-height: 500px;
+}
 .messageRow {
     margin-bottom: 10px;
 }
 .flexMessageContainer {
     background-color: #FFF;
     padding: 8px;
+}
+.overflow {
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+    overflow-y: auto; /* Add vertical scrollbar */
 }

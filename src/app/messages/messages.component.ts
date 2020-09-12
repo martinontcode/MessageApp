@@ -5,6 +5,7 @@ import { ChatMessage } from '../chatmessage';
 import { CHATMESSAGES } from '../mock-chatmessages';
 import { ChatmessageService } from "../chatmessage.service";
 import { Chat } from '../chat';
+import { ChatService } from '../chat.service';
 
 @Component({
   selector: 'app-messages',
@@ -15,12 +16,19 @@ export class MessagesComponent implements OnInit {
 
   // Define component property called messages to expose CHATMESSAGES array for binding
   messages: ChatMessage[];
+  chat: Chat[];
 
   getChatMessages(): void{
     const id = +this.route.snapshot.paramMap.get('id');
     this.chatMessageService.getChatMessages()
         .subscribe(chatmessages => this.messages = chatmessages.filter(chatfilter => chatfilter.chatid === id))
     // this.messages = this.chatMessageService.getChatMessages();
+  }
+
+  getChatProperties(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.chatService.getChatProperties()
+        .subscribe(chatproperties => this.chat = chatproperties.filter(chatfilter => chatfilter.id === id))
   }
 
   add(content: string): void{
@@ -46,7 +54,8 @@ export class MessagesComponent implements OnInit {
   constructor(
     private chatMessageService: ChatmessageService,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private chatService: ChatService
     ) { }
 
   ngOnInit(): void {
@@ -54,6 +63,7 @@ export class MessagesComponent implements OnInit {
       params => {
         const id = +params['id'];
         this.getChatMessages();
+        this.getChatProperties();
       }
     )
   }
