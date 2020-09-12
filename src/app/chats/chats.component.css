@@ -7,3 +7,7 @@
 .underline {
     text-decoration: none;
 }
+.overflow {
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+    overflow-y: auto; /* Add vertical scrollbar */
+}

@@ -1,18 +1,14 @@
-<div class="row mt-2">
-    <div class="col col-12 form-group mb-0">
-        <div class="input-group">
-            <input #chatSearchTerm class="form-control form-control-sm"
-            placeholder="Search" id="chatSearch" (input)="chatSearch(chatSearchTerm.value)">
-            <div class="input-group-append">
-                <button class="input-group-text btn btn-sm bg-white"><i class="fas fa-search fa-xs"></i></button>
-            </div>
-        </div>
-        <ul class="search-result">
-            <li *ngFor="let chat of chats$ | async">
-                <a routerLink="/chat/{{chat.id}}" (click)="chatSearchTerm.value='';">
-                    {{chat.name}}
-                </a>
-            </li>
-        </ul>
+<div class="input-group">
+    <input #chatSearchTerm class="form-control form-control-sm"
+    placeholder="Search" id="chatSearch" (input)="chatSearch(chatSearchTerm.value)">
+    <div class="input-group-append">
+        <button class="input-group-text btn btn-sm bg-white"><i class="fas fa-search fa-xs"></i></button>
     </div>
 </div>
+<ul class="search-result">
+    <li *ngFor="let chat of chats$ | async">
+        <a routerLink="/chat/{{chat.id}}" (click)="chatSearchTerm.value='';">
+            {{chat.name}}
+        </a>
+    </li>
+</ul>
