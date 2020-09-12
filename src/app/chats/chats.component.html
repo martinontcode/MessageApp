@@ -1,0 +1,77 @@
+<div class="row vh-100">
+    <div class="col col-12 border-right chatContainer">
+        <!-- Search box area -->
+        <div class="row mt-2">
+            <div class="col col-10 form-group mb-0">
+                <app-chat-search></app-chat-search>
+            </div>
+            <div class="col col-2 mb-0 pl-0">
+                <button type="button" class="btn btn-sm"
+                data-toggle="modal" data-target="#newChatConfirmModal">
+                <i class="fas fa-edit"></i></button>
+            </div>
+        </div>
+        <hr class="mt-0">
+        <!-- Chat list area -->
+        <div class="overflow h-75">
+            <div class="row mb-2 pl-1 pr-2" *ngFor="let chat of chats" (click)="onSelect(chat)" [class.border]="chat === selectedChat">
+                <div class="col col-2 d-flex align-items-center justify-content-end pr-0">
+                    <img src="{{chat.picture}}"
+                    alt="Chat logo" class="img-thumbnail" height="35" width="35">
+                </div>
+                <div class="col col-8 d-flex align-items-center">
+                    <small>
+                        <a routerLink="chat/{{chat.id}}" class="underline text-muted font-weight-light">{{chat.name}}</a>
+                    </small>
+                </div>
+                <div class="col col-1 d-flex align-items-center">
+                    <div class="dropdown">
+                        <i class="fas fa-ellipsis-h fa-xs" role="button" id="settingsDropdownButton" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false"></i>
+                        <div class="dropdown-menu" aria-labelledby="settingsDropdownButton">
+                            <a routerLink="chat-settings/{{chat.id}}" class="dropdown-item">Settings</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Create chat area -->
+        <!-- Full height can be achived with vh-100 -->
+        <!-- <div class="row">
+            <div class="col col-8 offset-2">
+                <button type="button" class="btn btn-sm btn-block btn-dark"
+                data-toggle="modal" data-target="#newChatConfirmModal">
+                + New Chat</button>
+            </div>
+        </div> -->
+        <!-- Modal -->
+        <div class="modal fade" id="newChatConfirmModal" tabindex="-1" role="dialog" aria-labelledby="newChatConfirmModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="newChatConfirmModalLabel">Create a new chat</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="chatName">Insert chat name</label>
+                            <input #chatName type="text" class="form-control" placeholder="Chat name" id="chatName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="chatPictureUrl">Insert picture URL</label>
+                            <input #chatPictureUrl type="url" class="form-control" placeholder="HTTP://URL" id="chatPictureUrl" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-dark"
+                        (click)="addChats(chatName.value, chatPictureUrl.value); chatName.value=''; chatPictureUrl.value=''"
+                        >Create chat</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
