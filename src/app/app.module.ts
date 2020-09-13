@@ -14,6 +14,9 @@ import { ChatSettingsComponent } from './chats/chat-settings/chat-settings.compo
 import { ChatSearchComponent } from './chats/chat-search/chat-search.component';
 import { UsersComponent } from './users/users.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { LoginComponent } from './users/login/login.component';
+import { RegisterComponent } from './users/register/register.component';
+import { authInterceptorProviders } from "./_helpers/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -23,7 +26,9 @@ import { NavbarComponent } from './navbar/navbar.component';
     ChatSettingsComponent,
     ChatSearchComponent,
     UsersComponent,
-    NavbarComponent
+    NavbarComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +42,7 @@ import { NavbarComponent } from './navbar/navbar.component';
       InMemoryDataService, { dataEncapsulation: false }
     )
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
