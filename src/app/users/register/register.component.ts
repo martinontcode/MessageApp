@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AuthService } from "../../_services/auth.service";
 import { User } from 'src/app/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -9,28 +11,23 @@ import { User } from 'src/app/user';
 })
 export class RegisterComponent implements OnInit {
 
-  user: User;
+  // user: User;
   isSignUpSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
 
-  onSubmit(username: string, password: string): void {
-    this.authService.userRegister( { username, password } as User)
-    .subscribe(
-      data => {
-        console.log(data);
-        this.isSignUpSuccessful = true;
-        this.isSignUpFailed = false;
-      },
-      err => {
-        this.errorMessage = err.error.message;
-        this.isSignUpFailed = true;
-      }
-    )
+  onSubmit(email: string, password: string): void {
+    // Needs to be moved to auth service
+    this.auth.createUserWithEmailAndPassword(email, password).then(user => {
+      console.log(user);
+      this.router.navigate(['']);
+    });
   }
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    public auth: AngularFireAuth,
+    private router: Router
   ) { }
 
   ngOnInit(): void {

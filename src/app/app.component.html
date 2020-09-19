@@ -1,8 +1,8 @@
 <app-navbar></app-navbar>
 <div class="container-fluid">
     <div class="row">
-        <app-users class="col col-custom-1"></app-users>
-        <app-chats class="col col-2"></app-chats>
+        <app-users *ngIf="auth.user$ | async as user" class="col col-custom-1"></app-users>
+        <app-chats *ngIf="auth.user$ | async as user" class="col col-2"></app-chats>
         <div class="col col-9 pl-0 messageContainer">
             <router-outlet></router-outlet>
         </div>

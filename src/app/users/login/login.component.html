@@ -1,1 +1,27 @@
-<p>login works!</p>
+<div class="col col-6 offset-3 border registerContainer mt-5">
+    <div class="form-group text-center mt-3">
+        <h3>MessageApp</h3>
+        <h6>Login to your MessageApp account</h6>
+        <hr>
+    </div>
+    <div class="col col-8 offset-2 mt-4 mb-4">
+        <form
+        *ngIf="!isLoggedIn"
+        name="form"
+        (ngSubmit)="f.form.valid && onSubmit(useremail.value, password.value)"
+        #f="ngForm"
+        novalidate>
+            <div class="form-group mt-4">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" name="email" required #useremail placeholder="E-mail">
+            </div>
+            <div class="form-group mt-2 mb-4">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" required minlength="6" #password placeholder="Password">
+            </div>
+            <div class="form-group col-8 offset-2 mt-4 mb-3">
+                <button class="btn btn-dark btn-block" >Sign In</button>
+            </div>
+        </form>
+    </div>
+</div>

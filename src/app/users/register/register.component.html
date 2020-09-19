@@ -8,12 +8,12 @@
         <form
         *ngIf="!isSignUpSuccessful"
         name="form"
-        (ngSubmit)="f.form.valid && onSubmit(username.value, password.value)"
+        (ngSubmit)="f.form.valid && onSubmit(useremail.value, password.value)"
         #f="ngForm"
         novalidate>
             <div class="form-group mt-4">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" name="username" required minlength="3" maxlength="20" #username placeholder="Username">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" name="email" required #useremail placeholder="E-mail">
             </div>
             <div class="form-group mt-2">
                 <label for="password">Password</label>

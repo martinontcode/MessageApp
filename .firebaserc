@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "message-app-ed73a": {
+      "hosting": {
+        "message-app": [
+          "message-app-ed73a"
+        ]
+      }
+    }
+  }
+}
