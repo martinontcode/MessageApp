@@ -19,6 +19,9 @@ export class LoginComponent implements OnInit {
 
   onSubmit(email: string, password: string): void {
     this.authService.credentialSignIn( email, password );
+    // this.authService.credentialSignIn( email, password ).subscribe(user => {
+    //   console.log(user);
+    // });
     this.router.navigate(['']);
   }
 

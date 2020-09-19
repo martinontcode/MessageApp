@@ -1,11 +1,22 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark  flex-md-nowrap p-0">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">MessageApp</a>
+    <ul class="navbar-nav px-3 ml-auto" *ngIf="auth.user$ | async as user; else publicNavbar">
+        <small class="d-flex align-items-center">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link text-muted">Hello, {{user.displayName}}</a>
+            </li>
+        </small>
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" (click)="signOut();">Sign Out</a>
+        </li>
+    </ul>
+
+    <ng-template #publicNavbar>
     <ul class="navbar-nav px-3 ml-auto">
         <li class="nav-item text-nowrap">
             <a class="nav-link" routerLink="login">Sign In</a>
         </li>
-        <li class="nav-item text-nowrap" *ngIf="auth.user$ | async as user">
-            <a class="nav-link" href="#" (click)="signOut();">Sign Out</a>
-        </li>
     </ul>
+    </ng-template>
+
 </nav>

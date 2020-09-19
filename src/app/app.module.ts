@@ -19,6 +19,7 @@ import { RegisterComponent } from './users/register/register.component';
 import { authInterceptorProviders } from "./_helpers/auth.interceptor";
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { environment } from 'src/environments/environment';
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
     ),
-    AngularFireModule.initializeApp(environment.firebase)
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
