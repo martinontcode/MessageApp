@@ -1,8 +1,10 @@
 <div class="row h-100 userContainer border-right" *ngIf="auth.user$ | async as user">
     <!-- User avatar -->
     <div class="col-12 mb-auto mt-3">
-        <img src="{{user.displayPicture}}"
-        alt="Chat logo" class="img-thumbnail-custom rounded-circle" height="45" width="45">
+        <a routerLink="/user-settings/{{user.uid}}">
+            <img src="{{user.displayPicture}}"
+            alt="Chat logo" class="img-thumbnail-custom rounded-circle" height="45" width="45">
+        </a>
     </div>
     <div class="col-12 mt-auto mb-5">
         <!-- Feedback button -->
@@ -12,8 +14,10 @@
         </div>
         <!-- Settings button -->
         <div>
-            <small><i class="fas fa-cogs text-light d-flex justify-content-center mb-1"></i></small>
-            <p class="d-flex justify-content-center text-light"><small>Settings</small></p>
+            <a routerLink="/user-settings/{{user.uid}}">
+                <small><i class="fas fa-cogs text-light d-flex justify-content-center mb-1"></i></small>
+                <p class="d-flex justify-content-center text-light"><small>Settings</small></p>
+            </a>
         </div>
     </div>
 </div>
