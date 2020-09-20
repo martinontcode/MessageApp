@@ -1,0 +1,9 @@
+.userContainer {
+    background-color: #37393A;
+}
+
+.img-thumbnail-custom {
+    padding: .05rem;
+    max-width: 100%;
+    height: auto;
+}

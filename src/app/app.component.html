@@ -1,10 +1,10 @@
 <app-navbar></app-navbar>
 <div class="container-fluid">
     <div class="row">
-        <div class="col col-1 pr-0 border-right">
-        </div>
-        <app-chats class="col col-2"></app-chats>
+        <app-users *ngIf="auth.user$ | async" class="col col-custom-1"></app-users>
+        <app-chats *ngIf="auth.user$ | async" class="col col-2"></app-chats>
         <div class="col col-9 pl-0 messageContainer">
+            {{auth.user$ | async | json}}
             <router-outlet></router-outlet>
         </div>
     </div>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { InMemoryDbService } from "angular-in-memory-web-api";
 import { ChatMessage } from "./chatmessage";
 import { Chat } from "./chat";
+import { User } from './user';
 
 @Injectable({
   providedIn: 'root'
