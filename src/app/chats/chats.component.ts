@@ -19,15 +19,11 @@ export class ChatsComponent implements OnInit {
         .subscribe(chats => this.chats = chats)
   }
 
-  addChats(name: string, picture: string): void {
-    name = name.trim();
-    picture = picture.trim();
-
-    if(!name && !picture) { return; }
-    this.chatService.addChats( { name, picture } as Chat )
-        .subscribe(chats => {
-          this.chats.push(chats);
-        });
+  addChats(chatName: string, chatPicture: string): void {
+    chatName = chatName.trim();
+    chatPicture = chatPicture.trim();
+    if(!chatName && !chatPicture) { return; }
+    this.chatService.addChats( { chatName, chatPicture } as Chat );
   }
 
   onSelect(chat: Chat): void {

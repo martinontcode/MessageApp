@@ -11,45 +11,58 @@ import { ChatService } from "../../chat.service";
 })
 export class ChatSettingsComponent implements OnInit {
 
-  chat: Chat[];
+  chat: Chat;
+  chats: Chat[];
 
-  getChatProperties(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.chatService.getChatProperties()
-        .subscribe(chatproperties => this.chat = chatproperties.filter(chatfilter => chatfilter.id === id))
+  getChatSettings(): void {
+    const cid = this.route.snapshot.paramMap.get('id');
+    this.chatService.getChatSettings(cid)
+        .subscribe(chatproperties => this.chat = chatproperties);
   }
 
-  saveChatSettings(picture: string, name: string): void{
+  saveChatSettings(chatPicture: string, chatName: string): void{
     // Trim input
-    picture = picture.trim();
-    name = name.trim();
+    chatPicture = chatPicture.trim();
+    chatName = chatName.trim();
 
     // Get ID from URL
-    const id = +this.route.snapshot.paramMap.get('id');
+    const cid = this.route.snapshot.paramMap.get('id');
 
-    if(!picture || !name){
+    if(!chatPicture || !chatName){
       return;
     };
 
-    this.chatService.saveChatSettings( {id, name, picture} as Chat )
-      .subscribe();
+    this.chatService.saveChatSettings( {cid, chatName, chatPicture} as Chat );
 
     this.chatService.notifyChange();
   }
 
-  deleteChat(chat: Chat): void {
-    /* Put all objects inside array to the same array, but filter out the chat that we want to delete.
-       Delete chat from lcoal array. */
-    this.chat = this.chat.filter(chat => chat !== chat);
+  deleteChat(): void {
+    // Get ID from URL
+    const cid = this.route.snapshot.paramMap.get('id');
 
     // Delete from database using chatService.
-    this.chatService.deleteChat(chat).subscribe();
+    this.chatService.deleteChat(cid);
 
     // Notify Chats component of a change in database, so getChats() would get triggered again.
     this.chatService.notifyChange();
 
     // Redirect user to home URL after Chat has been deleted.
     this.router.navigate(['/']);
+  }
+
+  addChatUser(uid: string): void {
+    uid = uid.trim();
+
+    // Get ID from URL
+    const cid = this.route.snapshot.paramMap.get('id');
+
+    if(!uid){
+      return;
+    };
+
+    this.chatService.addChatUser(cid, uid);
+
   }
 
   goBack(): void {
@@ -67,7 +80,7 @@ export class ChatSettingsComponent implements OnInit {
     this.route.params.subscribe(
       params => {
         const id = +params['id'];
-        this.getChatProperties();
+        this.getChatSettings();
       }
     )
   }

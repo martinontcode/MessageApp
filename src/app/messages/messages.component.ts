@@ -16,7 +16,7 @@ export class MessagesComponent implements OnInit {
 
   // Define component property called messages to expose CHATMESSAGES array for binding
   messages: ChatMessage[];
-  chat: Chat[];
+  chat: Chat;
 
   getChatMessages(): void{
     const id = +this.route.snapshot.paramMap.get('id');
@@ -26,9 +26,9 @@ export class MessagesComponent implements OnInit {
   }
 
   getChatProperties(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.chatService.getChatProperties()
-        .subscribe(chatproperties => this.chat = chatproperties.filter(chatfilter => chatfilter.id === id))
+    const cid = this.route.snapshot.paramMap.get('id');
+    this.chatService.getChatSettings(cid)
+        .subscribe(chatproperties => this.chat = chatproperties)
   }
 
   add(content: string): void{

@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 export class AuthService {
 
   user$: Observable<User>;
+  uid$: string;
 
   async credentialSignIn(email: string, password: string) {
     const credential = await this.afauth.signInWithEmailAndPassword(email, password);
@@ -24,6 +25,10 @@ export class AuthService {
   async credentialSignOut() {
     const signout = await this.afauth.signOut();
     this.router.navigate(['login']);
+  }
+
+  currentUser() {
+    return this.uid$;
   }
 
 
@@ -57,5 +62,8 @@ export class AuthService {
         }
       })
     );
+    this.afauth.authState.subscribe(user => {
+      if(user) this.uid$ = user.uid;
+    })
   }
 }

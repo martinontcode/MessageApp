@@ -29,9 +29,6 @@ export class InMemoryDataService implements InMemoryDbService{
   // Overrides the genId method to ensure that a chatmessage always has an id.
   // If the chatmessages array is empty the method below returns the initial number (1).
   // if the heroes array is not empty, the method below returns the highest hero id + 1
-  genChatId(chats: Chat[]): number {
-    return chats.length > 0 ? Math.max(...chats.map(chat => chat.id)) + 1 : 1;
-  }
   genId(chatmessages: ChatMessage[]): number {
     return chatmessages.length > 0 ? Math.max(...chatmessages.map(chatmessage => chatmessage.id))
     + 1 : 1;
