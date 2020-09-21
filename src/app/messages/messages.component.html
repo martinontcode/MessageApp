@@ -1,11 +1,11 @@
 <div class="container-fluid chatContainer">
     <!-- Chat header area -->
-    <div class="row mt-2" *ngFor="let chat of chat">
+    <div class="row mt-2" *ngIf="chat as chat">
         <div class="col col-2 d-flex align-items-center justify-content-end">
-            <img src="{{chat.picture}}"
+            <img src="{{chat.chatPicture}}"
             alt="Chat logo" class="img-thumbnail" height="50" width="50">
         </div>
-        <div class="col col-9 col-sm-7 d-flex align-items-center"><h3><strong>{{chat.name}}</strong></h3></div>
+        <div class="col col-9 col-sm-7 d-flex align-items-center"><h3><strong>{{chat.chatName}}</strong></h3></div>
     </div>
     <hr>
     <!-- Chat content area -->
