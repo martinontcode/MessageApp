@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/auth";
-import { AngularFirestore } from "@angular/fire/firestore";
+import { AngularFirestore, AngularFirestoreCollection } from "@angular/fire/firestore";
 
 import { Observable, of } from "rxjs";
 import { switchMap } from "rxjs/operators";
@@ -14,6 +14,8 @@ import { Router } from '@angular/router';
 
 export class AuthService {
 
+  userCollection: AngularFirestoreCollection<User>;
+  users$: Observable<User[]>;
   user$: Observable<User>;
   uid$: string;
 
@@ -28,36 +30,33 @@ export class AuthService {
     this.router.navigate(['login']);
   }
 
+  credentialSignUp(email: string, password: string) {
+    this.afauth.createUserWithEmailAndPassword(email, password)
+      .then(userdata => {
+        return this.database.collection('users').doc(userdata.user.uid).set({
+          uid: userdata.user.uid,
+          email: userdata.user.email,
+          // Default display picture
+          displayPicture: 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png',
+          // Default display name
+          displayName: userdata.user.email.substring(0, userdata.user.email.indexOf('@'))
+        });
+    });
+  }
+
   currentUser() {
     return this.uid$;
   }
 
-
-  // private updateUserData({ uid, email, displayName }: User) {
-  //   this.user: AngularFirestoreDocument<User> = this.afstore.collection(`users`);
-  //   // if(displayName == null){
-  //   //   displayName = 'Martin';
-  //   // }
-
-  //   // const data = {
-  //   //   uid: uid,
-  //   //   email: email,
-  //   //   displayName: displayName
-  //   // }
-
-  //   // return userRef.set(data, { merge: true });
-  // }
-
-
   constructor(
     private afauth: AngularFireAuth,
-    private afstore: AngularFirestore,
+    private database: AngularFirestore,
     private router: Router
   ) {
     this.user$ = this.afauth.authState.pipe(
       switchMap(user => {
         if(user) {
-          return this.afstore.doc<User>(`users/${user.uid}`).valueChanges();
+          return this.database.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
           return of(null);
         }
@@ -65,6 +64,8 @@ export class AuthService {
     );
     this.afauth.authState.subscribe(user => {
       if(user) this.uid$ = user.uid;
-    })
+    });
+    this.userCollection = database.collection<User>('users');
+    this.users$ = this.userCollection.valueChanges();
   }
 }
