@@ -1,22 +1,24 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
 import { User } from '../user';
 import { AuthService } from './auth.service';
-import { map } from 'rxjs/operators';
-import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestoreDocument, AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private API_URL = "/api/test";
-  $userSettingsChanged = new EventEmitter();
-  user$: Observable<User>;
+  userCollection: AngularFirestoreCollection<User>;
 
   getUserProperties(): Observable<User> {
     return this.auth.user$;
+  }
+
+  getUserData(): Observable<User> {
+    const uid = this.auth.currentUser();
+    return this.database.doc<User>(`users/${uid}`).valueChanges();
+    // return {displayName: 'Seth', displayPicture: 'https://img1.pnghut.com/5/1/1/MyAnaYgZrU/spiderman-monochrome-emoticon-photography-smile.jpg', email: 'test@test.ee', uid: 'I8GZEpDbFCgyeRC20wrLQauoCIY2'}
   }
 
   saveUserSettings(user: User) {
@@ -32,26 +34,17 @@ export class UserService {
     return userRef.set(data, { merge: true });
   }
 
-  notifyUserChange() {
-    const userChanged = 'User settings have changed';
-    this.$userSettingsChanged.emit();
-  }
-
-  getPublicContent(): Observable<any> {
-    return this.http.get(this.API_URL + '/all', {
-      responseType: 'text'
-    });
-  }
-
-  getUserContent(): Observable<any> {
-    return this.http.get(this.API_URL + '/user', {
-      responseType: 'text'
-    });
-  }
+  // newUserToFirebase(user: any) {
+  //   // User created now create Firebase Database user
+  //   this.database.object(`/users/${user.uid}`).update({
+  //     firstName: formData.value.firstName,
+  //     lastName: formData.value.lastName
+  //     });
+  // }
 
   constructor(
-    private http: HttpClient,
     private auth: AuthService,
     private database: AngularFirestore
-  ) { }
+  ) {
+  }
 }

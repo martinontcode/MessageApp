@@ -98,7 +98,6 @@ export class ChatService {
   constructor(
     private http: HttpClient,
     private database: AngularFirestore,
-
     private auth: AuthService
   ) {
     this.chatsCollection = database.collection<Chat>('chats');
