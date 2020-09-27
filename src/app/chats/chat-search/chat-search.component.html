@@ -7,8 +7,8 @@
 </div>
 <ul class="search-result">
     <li *ngFor="let chat of chats$ | async">
-        <a routerLink="/chat/{{chat.id}}" (click)="chatSearchTerm.value='';">
-            {{chat.name}}
+        <a routerLink="/chat/{{chat.cid}}" (click)="chatSearchTerm.value='';">
+            {{chat.chatName}}
         </a>
     </li>
 </ul>

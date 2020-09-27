@@ -3,6 +3,9 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { Chat } from "./chat";
 import { CHATS } from "./mock-chats";
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AuthService } from './_services/auth.service';
+import { firestore } from 'firebase/app';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +13,11 @@ import { CHATS } from "./mock-chats";
 export class ChatService {
 
   $saved = new EventEmitter();
+  uid$: string;
 
   private chatUrl = 'api/chats'; // URL to web api
+  private chatsCollection: AngularFirestoreCollection<Chat>;
+  chats: Observable<Chat[]>;
 
 
   httpOptions = {
@@ -19,27 +25,59 @@ export class ChatService {
   };
 
   getChats(): Observable<Chat[]> {
-    return this.http.get<Chat[]>(this.chatUrl);
+    return this.database.collection<Chat>('chats', ref => ref.where('uid', 'array-contains', this.auth.currentUser())).valueChanges();
   }
 
-  addChats(chat: Chat): Observable<Chat> {
-    return this.http.post<Chat>(this.chatUrl, chat, this.httpOptions);
+  addChats(chat: Chat) {
+
+    const uid = this.auth.currentUser();
+    const cid = this.database.createId();
+    const chatName = chat.chatName;
+    const chatPicture = chat.chatPicture;
+
+    const data: Chat = {
+      cid,
+      chatName,
+      chatPicture,
+      uid: [uid]
+    }
+
+    this.chatsCollection.doc(cid).set(data);
+    // return this.http.post<Chat>(this.chatUrl, chat, this.httpOptions);
   }
 
-  getChatProperties(): Observable<Chat[]> {
-    return this.http.get<Chat[]>(this.chatUrl);
+  getChatSettings(cid: string): Observable<Chat> {
+    // Go to <firebase>/chats/FSmxaseFvBwMfMDLSFsW
+    return this.database.doc<Chat>(`chats/${cid}`).valueChanges();
   }
 
-  saveChatSettings(chat: Chat): Observable<any>{
-    console.log(chat);
-    return this.http.put(this.chatUrl, chat, this.httpOptions);
+  saveChatSettings(chat: Chat) {
+    const chatRef: AngularFirestoreDocument<Chat> = this.database.doc(`chats/${chat.cid}`);
+
+    const data = {
+      cid: chat.cid,
+      chatPicture: chat.chatPicture,
+      chatName: chat.chatName
+    }
+
+    return chatRef.set(data, { merge: true });
   }
 
-  deleteChat(chat: Chat | number): Observable<Chat> {
-    const id = typeof chat === 'number' ? chat : chat.id;
-    const url = `${this.chatUrl}/${id}`;
+  async deleteChat(cid: string) {
+    const chatRef: AngularFirestoreDocument<Chat> = this.database.doc(`chats/${cid}`);
+    const deleteTask = await chatRef.delete();
 
-    return this.http.delete<Chat>(url, this.httpOptions);
+    return deleteTask;
+  }
+
+  async addChatUser(cid: string, uid: string) {
+    const chatRef: AngularFirestoreDocument = this.database.doc(`chats/${cid}`);
+
+    const addUserTask = await chatRef.update({
+      uid: firestore.FieldValue.arrayUnion(uid)
+    });
+
+    return addUserTask;
   }
 
   chatSearch(name: string): Observable<Chat[]> {
@@ -48,7 +86,8 @@ export class ChatService {
       return of ([]);
     }
 
-    return this.http.get<Chat[]>(`${this.chatUrl}/?name=${name}`);
+    // Firebase only allows full keyword search, must add user filtering (only show search results that include user)
+    return this.database.collection<Chat>('chats', ref => ref.where('chatName', '==', name)).valueChanges();
   }
 
   notifyChange() {
@@ -57,6 +96,11 @@ export class ChatService {
   }
 
   constructor(
-    private http: HttpClient
-  ) { }
+    private http: HttpClient,
+    private database: AngularFirestore,
+    private auth: AuthService
+  ) {
+    this.chatsCollection = database.collection<Chat>('chats');
+    this.chats = this.chatsCollection.valueChanges();
+  }
 }

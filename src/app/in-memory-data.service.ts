@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from "angular-in-memory-web-api";
-import { ChatMessage } from "./chatmessage";
+import { Message } from "./message";
 import { Chat } from "./chat";
 import { User } from './user';
 
@@ -23,17 +23,6 @@ export class InMemoryDataService implements InMemoryDbService{
       {id: 5, chatid: 2, username: 'Guest', content: 'Vestibulum vehicula eleifend tincidunt.', date: '25.08.2020 12:24:00'},
       {id: 6, chatid: 2, username: 'Admin', content: 'Integer laoreet elementum augue et tristique.', date: '25.08.2020 12:25:00'}
     ];
-    return {chats, chatmessages};
-  }
-
-  // Overrides the genId method to ensure that a chatmessage always has an id.
-  // If the chatmessages array is empty the method below returns the initial number (1).
-  // if the heroes array is not empty, the method below returns the highest hero id + 1
-  genChatId(chats: Chat[]): number {
-    return chats.length > 0 ? Math.max(...chats.map(chat => chat.id)) + 1 : 1;
-  }
-  genId(chatmessages: ChatMessage[]): number {
-    return chatmessages.length > 0 ? Math.max(...chatmessages.map(chatmessage => chatmessage.id))
-    + 1 : 1;
+    return {};
   }
 }

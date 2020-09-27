@@ -1,9 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-import { Location } from "@angular/common";
-import { ChatMessage } from '../chatmessage';
-import { CHATMESSAGES } from '../mock-chatmessages';
-import { ChatmessageService } from "../chatmessage.service";
+import { Message } from '../message';
+import { MessageService } from "../message.service";
 import { Chat } from '../chat';
 import { ChatService } from '../chat.service';
 
@@ -15,54 +13,48 @@ import { ChatService } from '../chat.service';
 export class MessagesComponent implements OnInit {
 
   // Define component property called messages to expose CHATMESSAGES array for binding
-  messages: ChatMessage[];
-  chat: Chat[];
+  messages: Message[];
+  chat: Chat;
 
-  getChatMessages(): void{
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.chatMessageService.getChatMessages()
-        .subscribe(chatmessages => this.messages = chatmessages.filter(chatfilter => chatfilter.chatid === id))
+  getMessages(): void{
+    const cid = this.route.snapshot.paramMap.get('id');
+    this.messageService.getMessages(cid)
+        .subscribe(messages => this.messages = messages);
     // this.messages = this.chatMessageService.getChatMessages();
   }
 
   getChatProperties(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.chatService.getChatProperties()
-        .subscribe(chatproperties => this.chat = chatproperties.filter(chatfilter => chatfilter.id === id))
+    const cid = this.route.snapshot.paramMap.get('id');
+    this.chatService.getChatSettings(cid)
+        .subscribe(chatproperties => this.chat = chatproperties)
   }
 
-  add(content: string): void{
-    // Username is set as a constant until user component is created.
-    const username = 'Admin';
+  addMessage(messageContent: string): void{
+
+    // Trim input
+    messageContent = messageContent.trim();
+
     // Get chat id from URL
-    const chatid = +this.route.snapshot.paramMap.get('id');
+    const cid = this.route.snapshot.paramMap.get('id');
 
-    // Set dynamic property for datetime.
-    var today = new Date();
-    var currentDate = today.toLocaleDateString();
-    var currentTime = today.toLocaleTimeString();
-    var date = currentDate+' '+currentTime;
+    // Check if input is not null
+    if (!messageContent) { return; }
 
-    content = content.trim();
-    if (!content) { return; }
-    this.chatMessageService.addChatMessage( { chatid, username, content, date } as ChatMessage)
-        .subscribe(chatmessage => {
-          this.messages.push(chatmessage);
-        });
+    // Call for Message Service addMessage method, wait for reply
+    this.messageService.addMessage( {cid, messageContent } as Message);
   }
 
   constructor(
-    private chatMessageService: ChatmessageService,
+    private messageService: MessageService,
     private route: ActivatedRoute,
-    private location: Location,
-    private chatService: ChatService
+    private chatService: ChatService,
     ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(
       params => {
-        const id = +params['id'];
-        this.getChatMessages();
+        const cid = +params['id'];
+        this.getMessages();
         this.getChatProperties();
       }
     )
