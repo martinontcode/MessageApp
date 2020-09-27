@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AuthService } from "../../_services/auth.service";
-import { User } from 'src/app/user';
+import { AuthService } from 'src/app/_services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,14 +15,12 @@ export class RegisterComponent implements OnInit {
   errorMessage = '';
 
   onSubmit(email: string, password: string): void {
-    // Needs to be moved to auth service
-    this.auth.createUserWithEmailAndPassword(email, password).then(user => {
-    });
+    this.authService.credentialSignUp(email, password);
+    this.router.navigate(['']);
   }
 
   constructor(
     private authService: AuthService,
-    public auth: AngularFireAuth,
     private router: Router
   ) { }
 
