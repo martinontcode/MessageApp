@@ -1,21 +1,21 @@
-<div class="container-fluid chatContainer">
+<div class="container-fluid messageContainer">
     <!-- Chat header area -->
     <div class="row mt-2" *ngIf="chat as chat">
-        <div class="col col-2 d-flex align-items-center justify-content-end">
+        <div class="col col-3 offset-1 col-sm-2 offset-sm-3 d-flex align-items-center justify-content-end">
             <img src="{{chat.chatPicture}}"
-            alt="Chat logo" class="img-thumbnail" height="50" width="50">
+            alt="Chat logo" class="img-fluid rounded-circle" height="35" width="35">
         </div>
-        <div class="col col-9 col-sm-7 d-flex align-items-center"><h3><strong>{{chat.chatName}}</strong></h3></div>
+        <div class="col col-8 col-sm-7 d-flex align-items-center"><h3><strong>{{chat.chatName}}</strong></h3></div>
     </div>
     <hr>
     <!-- Chat content area -->
     <div class="overflow mh-50 contentArea">
-        <div class="row messageRow" *ngFor="let message of messages">
+        <div class="row messageRowContainer" *ngFor="let message of messages">
             <div class="col col-2 offset-sm-1 d-flex align-items-center justify-content-end">
                 <img src="{{message.displayPicture}}"
-                alt="Chat logo" class="img-thumbnail rounded-circle" height="50" width="50">
+                alt="Chat logo" class="img-fluid rounded-circle" height="35" width="35">
             </div>
-            <div class="col col-5 pl-0">
+            <div class="col col-10 col-sm-6 pl-0">
                 <div class="d-inline-flex flexMessageContainer rounded border">
                     <div class="flex-row">
                         <div class="text-muted font-weight-light">
@@ -24,10 +24,11 @@
                         <div>
                             {{message.messageContent}}
                         </div>
+                        <small class="d-block d-sm-none text-muted font-weight-light mt-2">{{message.messageTimestamp.seconds * 1000 | date:'dd.MM.yyyy hh:mm:ss' }}</small>
                     </div>
                 </div>
             </div>
-            <div class="col col-2 text-right text-muted font-weight-light">
+            <div class="col col-12 col-sm-3 col-md-2 text-right text-muted font-weight-light d-none d-sm-block">
                 <small>{{message.messageTimestamp.seconds * 1000 | date:'dd.MM.yyyy hh:mm:ss' }}</small>
             </div>
         </div>
@@ -35,7 +36,7 @@
     <hr>
     <!-- Post message area -->
     <div class="row">
-        <div class="col col-8 offset-sm-2 form-group">
+        <div class="col col-12 col-sm-8 offset-sm-2 form-group">
             <div class="input-group">
                 <input #chatMessage class="form-control"
                 (keyup.enter)="addMessage(chatMessage.value); chatMessage.value=''"

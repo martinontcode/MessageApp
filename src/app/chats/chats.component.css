@@ -1,4 +1,4 @@
-.chatContainer {
+.chatListContainer {
     background-color: #F9F9FB;
 }
 .messageContainer {
@@ -10,4 +10,7 @@
 .overflow {
     overflow-x: hidden; /* Hide horizontal scrollbar */
     overflow-y: auto; /* Add vertical scrollbar */
+}
+.dropdown-menu {
+    min-width: 3rem;
 }
