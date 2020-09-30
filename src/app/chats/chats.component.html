@@ -1,14 +1,14 @@
 <div class="row vh-100">
-    <div class="col col-12 border-right chatContainer">
+    <div class="col col-12 border-right chatListContainer" >
         <!-- Search box area -->
         <div class="row mt-2">
-            <div class="col col-10 form-group mb-0">
+            <div class="col col-sm-10 form-group mb-0 d-none d-sm-block">
                 <app-chat-search></app-chat-search>
             </div>
-            <div class="col col-2 mb-0 pl-0">
+            <div class="col col-12 col-sm-2 pl-sm-0 mb-0 text-center">
                 <button type="button" class="btn btn-sm"
                 data-toggle="modal" data-target="#newChatConfirmModal">
-                <i class="fas fa-edit"></i></button>
+                <i class="fas fa-edit"></i><span class="d-block d-sm-none">New chat</span></button>
             </div>
         </div>
         <hr class="mt-0">
@@ -17,15 +17,15 @@
             <div class="row mb-2 pl-1 pr-2" *ngFor="let chat of chats" (click)="onSelect(chat)" [class.border]="chat === selectedChat">
                 <div class="col col-2 d-flex align-items-center justify-content-end pr-0">
                     <img src="{{chat.chatPicture}}"
-                    alt="Chat logo" class="img-thumbnail" height="35" width="35">
+                    alt="Chat logo" class="img-fluid rounded-circle custom" height="25" width="25">
                 </div>
-                <div class="col col-8 d-flex align-items-center">
+                <div class="col-7 d-flex align-items-center">
                     <small>
                         <a routerLink="chat/{{chat.cid}}" class="underline text-muted font-weight-light">{{chat.chatName}}</a>
                     </small>
                 </div>
-                <div class="col col-1 d-flex align-items-center">
-                    <div class="dropdown">
+                <div class="col col-3 d-flex align-items-center">
+                    <div class="dropright">
                         <i class="fas fa-ellipsis-h fa-xs" role="button" id="settingsDropdownButton" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false"></i>
                         <div class="dropdown-menu" aria-labelledby="settingsDropdownButton">

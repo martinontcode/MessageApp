@@ -1,10 +1,15 @@
 <app-navbar></app-navbar>
 <div class="container-fluid">
     <div class="row">
-        <app-users *ngIf="auth.user$ | async" class="col col-custom-1"></app-users>
-        <app-chats *ngIf="auth.user$ | async" class="col col-2"></app-chats>
-        <div class="col col-9 pl-0 messageContainer">
+        <app-users *ngIf="auth.user$ | async" class="col col-custom-1 d-none d-xl-block"></app-users>
+        <app-chats *ngIf="auth.user$ | async" class="col col-4 col-md-3 col-xl-2"></app-chats>
+        <div *ngIf="auth.user$ | async; else publicContent" class="col col-8 col-md-9 pl-0">
             <router-outlet></router-outlet>
         </div>
+        <ng-template #publicContent>
+            <div class="col col-12 col-md-9 pl-0">
+                <router-outlet></router-outlet>
+            </div>
+        </ng-template>
     </div>
 </div>

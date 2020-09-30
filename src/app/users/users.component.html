@@ -1,6 +1,6 @@
-<div class="row h-100 userContainer border-right" *ngIf="auth.user$ | async as user">
+<div class="row h-100 userSideBar border-right" *ngIf="auth.user$ | async as user">
     <!-- User avatar -->
-    <div class="col-12 mb-auto mt-3">
+    <div class="col-12 mb-auto mt-3 text-center">
         <a routerLink="/user-settings/{{user.uid}}">
             <img src="{{user.displayPicture}}"
             alt="Chat logo" class="img-thumbnail-custom rounded-circle" height="45" width="45">
