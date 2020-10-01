@@ -15,11 +15,16 @@ export class MessagesComponent implements OnInit {
   // Define component property called messages to expose CHATMESSAGES array for binding
   messages: Message[];
   chat: Chat;
+  loading: boolean = false;
 
   getMessages(): void{
     const cid = this.route.snapshot.paramMap.get('id');
+    this.loading = true;
     this.messageService.getMessages(cid)
-        .subscribe(messages => this.messages = messages);
+        .subscribe(messages => {
+          this.loading = false;
+          this.messages = messages;
+        });
     // this.messages = this.chatMessageService.getChatMessages();
   }
 

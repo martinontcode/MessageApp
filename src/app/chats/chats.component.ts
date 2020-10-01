@@ -11,12 +11,17 @@ import { ActivatedRoute } from '@angular/router';
 export class ChatsComponent implements OnInit {
 
   selectedChat: Chat;
+  loading: boolean = false;
 
   chats: Chat[];
 
   getChats(): void {
+    this.loading = true;
     this.chatService.getChats()
-        .subscribe(chats => this.chats = chats)
+        .subscribe(chats => {
+          this.loading = false;
+          this.chats = chats;
+        })
   }
 
   addChats(chatName: string, chatPicture: string): void {

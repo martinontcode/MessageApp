@@ -13,11 +13,16 @@ export class ChatSettingsComponent implements OnInit {
 
   chat: Chat;
   chats: Chat[];
+  loading: boolean = false;
 
   getChatSettings(): void {
+    this.loading = true;
     const cid = this.route.snapshot.paramMap.get('id');
     this.chatService.getChatSettings(cid)
-        .subscribe(chatproperties => this.chat = chatproperties);
+        .subscribe(chatproperties => {
+          this.loading = false;
+          this.chat = chatproperties;
+        });
   }
 
   saveChatSettings(chatPicture: string, chatName: string): void{
