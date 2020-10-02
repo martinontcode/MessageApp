@@ -21,7 +21,6 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { UserSettingsComponent } from './users/user-settings/user-settings.component';
-import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -34,8 +33,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
     NavbarComponent,
     LoginComponent,
     RegisterComponent,
-    UserSettingsComponent,
-    WelcomeComponent
+    UserSettingsComponent
   ],
   imports: [
     BrowserModule,

@@ -6,13 +6,11 @@ import { ChatSettingsComponent } from './chats/chat-settings/chat-settings.compo
 import { RegisterComponent } from './users/register/register.component';
 import { LoginComponent } from './users/login/login.component';
 import { UserSettingsComponent } from './users/user-settings/user-settings.component';
-import { WelcomeComponent } from './welcome/welcome.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectLoggedInToHome = () => redirectLoggedInTo(['']);
 
 const routes: Routes = [
-  { path: '', component: WelcomeComponent , ...canActivate(redirectUnauthorizedToLogin) },
   { path: 'chat/:id', component: MessagesComponent,    ...canActivate(redirectUnauthorizedToLogin) },
   { path: 'chat-settings/:id', component: ChatSettingsComponent, ...canActivate(redirectUnauthorizedToLogin) },
   { path: 'user-settings/:uid', component: UserSettingsComponent, ...canActivate(redirectUnauthorizedToLogin) },
