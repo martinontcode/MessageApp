@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
-import { Chat } from 'src/app/chat';
-import { ChatService } from 'src/app/chat.service';
+import { Chat } from 'src/app/_models/chat';
+import { ChatService } from 'src/app/_services/chat.service';
 
 @Component({
   selector: 'app-chat-search',

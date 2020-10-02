@@ -6,9 +6,6 @@ import { HttpClientModule } from "@angular/common/http";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MessagesComponent } from './messages/messages.component';
-// Import HttpClient modules to simulate a data server
-import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
-import { InMemoryDataService } from "./in-memory-data.service";
 import { ChatsComponent } from './chats/chats.component';
 import { ChatSettingsComponent } from './chats/chat-settings/chat-settings.component';
 import { ChatSearchComponent } from './chats/chat-search/chat-search.component';
@@ -42,12 +39,6 @@ import { WelcomeComponent } from './welcome/welcome.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    // The HttpClientInMemoryWebApiModule module intercepts HTTP request
-    // and returns simulated server responses.
-    // Remove it when a real server is ready to receive request.
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
-    ),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule
   ],

@@ -1,10 +1,9 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpHeaders } from "@angular/common/http";
 import { Observable, of } from "rxjs";
-import { Chat } from "./chat";
-import { CHATS } from "./mock-chats";
+import { Chat } from "../_models/chat";
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { AuthService } from './_services/auth.service';
+import { AuthService } from './auth.service';
 import { firestore } from 'firebase/app';
 
 @Injectable({
@@ -43,7 +42,6 @@ export class ChatService {
     }
 
     this.chatsCollection.doc(cid).set(data);
-    // return this.http.post<Chat>(this.chatUrl, chat, this.httpOptions);
   }
 
   getChatSettings(cid: string): Observable<Chat> {
@@ -96,7 +94,6 @@ export class ChatService {
   }
 
   constructor(
-    private http: HttpClient,
     private database: AngularFirestore,
     private auth: AuthService
   ) {
