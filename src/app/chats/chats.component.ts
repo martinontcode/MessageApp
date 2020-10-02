@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Chat } from '../chat';
-import { ChatService } from "../chat.service";
-import { ActivatedRoute } from '@angular/router';
+import { Chat } from '../_models/chat';
+import { ChatService } from "../_services/chat.service";
 
 @Component({
   selector: 'app-chats',
@@ -33,12 +32,10 @@ export class ChatsComponent implements OnInit {
 
   onSelect(chat: Chat): void {
     this.selectedChat = chat;
-    // this.selectedChatId = chat.id;
   }
 
   constructor(
-    private chatService: ChatService,
-    private route: ActivatedRoute,
+    private chatService: ChatService
     ) { }
 
   ngOnInit(): void {

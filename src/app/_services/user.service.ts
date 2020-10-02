@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
-import { User } from '../user';
+import { User } from '../_models/user';
 import { AuthService } from './auth.service';
 import { AngularFirestoreDocument, AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
@@ -33,14 +33,6 @@ export class UserService {
 
     return userRef.set(data, { merge: true });
   }
-
-  // newUserToFirebase(user: any) {
-  //   // User created now create Firebase Database user
-  //   this.database.object(`/users/${user.uid}`).update({
-  //     firstName: formData.value.firstName,
-  //     lastName: formData.value.lastName
-  //     });
-  // }
 
   constructor(
     private auth: AuthService,
